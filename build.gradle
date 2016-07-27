@@ -1,0 +1,57 @@
+apply plugin: 'java'
+apply plugin: 'eclipse'
+
+sourceCompatibility = 1.8
+version = '1.0'
+
+task wrapper(type: Wrapper) {
+    gradleVersion = '2.9'
+}
+
+jar {
+    manifest {
+        attributes 'Implementation-Title': 'Ultra Speed Downloader',
+                   'Implementation-Version': version,
+                  'Main-Class': 'ultra.speed.downloader.main.MainApplication'
+    }
+}
+
+task fatJar(type: Jar) {
+	manifest {
+        attributes 'Implementation-Title': 'Ultra Speed Downloader',  
+        	'Implementation-Version': version,
+        	'Main-Class': 'ultra.speed.downloader.main.MainApplication'
+    }
+    baseName = project.name + '-all'
+    from { configurations.compile.collect { it.isDirectory() ? it : zipTree(it) } }
+    with jar
+}
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    compile group: 'commons-collections', name: 'commons-collections', version: '3.2'
+	compile group: 'org.apache.commons', name: 'commons-io', version: '1.3.2'
+	compile group: 'commons-net', name: 'commons-net', version: '3.3'
+	compile group: 'org.apache.commons', name: 'commons-vfs2', version: '2.0'
+    compile 'org.apache.commons:commons-lang3:3.0'
+        
+    compile 'org.slf4j:slf4j-api:1.7.5' 
+    compile 'ch.qos.logback:logback-core:1.1.2'
+    compile 'ch.qos.logback:logback-classic:1.0.13'
+    testCompile group: 'junit', name: 'junit', version: '4.+'
+}
+
+test {
+    systemProperties 'property': 'value'
+}
+
+uploadArchives {
+    repositories {
+       flatDir {
+           dirs 'repos'
+       }
+    }
+}
