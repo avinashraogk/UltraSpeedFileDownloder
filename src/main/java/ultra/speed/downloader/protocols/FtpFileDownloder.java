@@ -40,7 +40,8 @@ public class FtpFileDownloder implements FileDownloder {
 
     @Override
     public void downloadFile() throws IOException {
-        initalization();
+        createFtpConnection();
+        setUpLocalFilePath();
         try (OutputStream outputStream = new BufferedOutputStream(new FileOutputStream(localFile))) {
             ftpClient.retrieveFile(resourceDetails.getRemoteFileName(), outputStream);
             LOGGER.info("Successfully downloaded the file to : " + localFile.getAbsolutePath());
@@ -56,17 +57,9 @@ public class FtpFileDownloder implements FileDownloder {
     }
 
     /**
-     * Initialization of FTP client
-     */
-    private void initalization() {
-        initializeFtpClient();
-        createLocalFile();
-    }
-
-    /**
      * To Initialize the FTP Client.
      */
-    public void initializeFtpClient() {
+    private void createFtpConnection() {
         ftpClient = new FTPClient();
         try {
             ftpClient.connect(resourceDetails.getServer(), resourceDetails.getPort());
@@ -99,7 +92,7 @@ public class FtpFileDownloder implements FileDownloder {
     /**
      * Create local file to download.
      */
-    private void createLocalFile() {
+    private void setUpLocalFilePath() {
         String localFileName = ApplicationProperties.DOWNLOAD_PATH + resourceDetails.getServer()
                 + resourceDetails.getRemoteFileName();
         localFile = Paths.get(localFileName).toFile();

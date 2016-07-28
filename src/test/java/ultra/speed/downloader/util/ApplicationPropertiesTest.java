@@ -14,7 +14,7 @@ public class ApplicationPropertiesTest {
     @Test
     public void applicationPropertiesTest() {
         assertNotNull(ApplicationProperties.DOWNLOAD_PATH);
-        assertNotNull(ApplicationProperties.MAX_AWAIT_TIME_IN_SECONDS);
+        assertNotNull(ApplicationProperties.MAX_FLUSH_COUNT);
         assertNotNull(ApplicationProperties.NO_OF_THREADS);
     }
 

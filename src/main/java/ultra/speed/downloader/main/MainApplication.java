@@ -1,6 +1,5 @@
 package ultra.speed.downloader.main;
 
-import static ultra.speed.downloader.util.ApplicationProperties.MAX_AWAIT_TIME_IN_SECONDS;
 import static ultra.speed.downloader.util.ApplicationProperties.NO_OF_THREADS;
 
 import java.util.ArrayList;
@@ -8,7 +7,6 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
-import java.util.concurrent.TimeUnit;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -44,11 +42,5 @@ public class MainApplication {
         LOGGER.info("-------- Threads are at work !! Have patience !! -----------");
 
         executorService.shutdown();
-        try {
-            executorService.awaitTermination(MAX_AWAIT_TIME_IN_SECONDS, TimeUnit.SECONDS);
-        } catch (InterruptedException e) {
-            LOGGER.error("Thread Interrupted Exception. ", e);
-        }
-        LOGGER.info("Program Completed Successfully !");
     }
 }

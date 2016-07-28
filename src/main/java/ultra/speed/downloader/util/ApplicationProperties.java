@@ -20,7 +20,6 @@ public class ApplicationProperties {
 
     public static final Path DOWNLOAD_PATH;
     public static final int NO_OF_THREADS;
-    public static final int MAX_AWAIT_TIME_IN_SECONDS;
     public static final int MAX_FLUSH_COUNT;
 
     static {
@@ -32,7 +31,6 @@ public class ApplicationProperties {
         }
         DOWNLOAD_PATH = Paths.get(p.getProperty("pathToDownload"));
         NO_OF_THREADS = Integer.parseInt(p.getProperty("noOfThreads").trim());
-        MAX_AWAIT_TIME_IN_SECONDS = Integer.parseInt(p.getProperty("maxAwaitTimeForTerminationInSeconds").trim());
         MAX_FLUSH_COUNT = Integer.parseInt(p.getProperty("maxFlushCount").trim());
 
         printProperties();
@@ -45,7 +43,7 @@ public class ApplicationProperties {
         LOGGER.info("==========================================================================");
         LOGGER.info("DOWNLOAD PATH              : " + DOWNLOAD_PATH);
         LOGGER.info("NUMBER OF THREADS          : " + NO_OF_THREADS);
-        LOGGER.info("MAX AWAIT TIME IN SECOND   : " + MAX_AWAIT_TIME_IN_SECONDS);
+        LOGGER.info("MAX FLUSH COUNT            : " + MAX_FLUSH_COUNT);
         LOGGER.info("==========================================================================");
     }
 
